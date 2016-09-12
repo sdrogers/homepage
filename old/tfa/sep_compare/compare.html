@@ -1,0 +1,540 @@
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>Compare genex data for EL and CDC for the SEP SIM</title>
+      <meta name="generator" content="MATLAB 7.0.4">
+      <meta name="date" content="2006-04-05">
+      <meta name="m-file" content="compare"><style>
+body {
+  background-color: white;
+  margin:10px;
+}
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+pre.codeinput {
+  margin-left: 30px;
+}
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.showbuttons {
+  margin-left: 30px;
+  border: solid black 2px;
+  padding: 4px;
+  background: #EBEFF3;
+}
+
+pre.codeoutput {
+  color: gray;
+  font-style: italic;
+}
+pre.error {
+  color: red;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows.  On Gecko-based browsers, the shrink-to-fit doesn't work. */ 
+p,h1,h2,div {
+  /* for MATLAB's browser */
+  width: 600px;
+  /* for Mozilla, but the "width" tag overrides it anyway */
+  max-width: 600px;
+  /* for IE */
+  width:expression(document.body.clientWidth > 620 ? "600px": "auto" );
+}
+
+    </style></head>
+   <body>
+      <h1>Compare genex data for EL and CDC for the SEP SIM</h1>
+      <introduction></introduction>
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#1">Clear everything</a></li>
+            <li><a href="#2">Load data</a></li>
+            <li><a href="#3">Check the size</a></li>
+            <li><a href="#4">Remove extra CDC rows</a></li>
+            <li><a href="#5">Calc means</a></li>
+            <li><a href="#6">Loop through genes and plot</a></li>
+            <li><a href="#7">Gene 1</a></li>
+            <li><a href="#8">Gene 2</a></li>
+            <li><a href="#9">Gene 3</a></li>
+            <li><a href="#10">Gene 4</a></li>
+            <li><a href="#11">Gene 5</a></li>
+            <li><a href="#12">Gene 6</a></li>
+            <li><a href="#13">Gene 7</a></li>
+            <li><a href="#14">Gene 8</a></li>
+            <li><a href="#15">gene 9</a></li>
+            <li><a href="#16">Gene 10</a></li>
+            <li><a href="#17">Gene 11</a></li>
+            <li><a href="#18">Gene 12</a></li>
+            <li><a href="#19">Gene 13</a></li>
+            <li><a href="#20">Gene 14</a></li>
+            <li><a href="#21">Gene 15</a></li>
+         </ul>
+      </div>
+      <h2>Clear everything<a name="1"></a></h2><pre class="codeinput">clear <span class="string">all</span>
+</pre><h2>Load data<a name="2"></a></h2><pre class="codeinput">EL(:,:,1) = dlmread(<span class="string">'../../el/sep/data1_el_sep.dat'</span>);
+EL(:,:,2) = dlmread(<span class="string">'../../el/sep/data1_el_sep.dat'</span>);
+EL(:,:,2) = dlmread(<span class="string">'../../el/sep/data2_el_sep.dat'</span>);
+EL(:,:,3) = dlmread(<span class="string">'../../el/sep/data3_el_sep.dat'</span>);
+CDC(:,:,1) = dlmread(<span class="string">'../../cdc/sep/data1_cdc_sep.dat'</span>);
+CDC(:,:,2) = dlmread(<span class="string">'../../cdc/sep/data2_cdc_sep.dat'</span>);
+</pre><h2>Check the size<a name="3"></a></h2><pre class="codeinput">size(EL)
+size(CDC)
+</pre><pre class="codeoutput">
+ans =
+
+    15    20     3
+
+
+ans =
+
+    16    18     2
+
+</pre><h2>Remove extra CDC rows<a name="4"></a></h2><pre class="codeinput">CDC(16,:,:) = [];
+</pre><h2>Calc means<a name="5"></a></h2><pre class="codeinput">nG = 15;
+<span class="keyword">for</span> g = 1:nG
+    MEL(g,:) = mean([EL(g,:,1);EL(g,:,2);EL(g,:,3)]);
+    MCDC(g,:) = mean([CDC(g,:,1);CDC(g,:,2)]);
+<span class="keyword">end</span>
+</pre><h2>Loop through genes and plot<a name="6"></a></h2><pre class="codeinput">TEL = [0:15:295];
+TCDC = [0:15:265];
+nG = 15;
+</pre><h2>Gene 1<a name="7"></a></h2><pre class="codeinput">g = 1;
+figure(1);hold <span class="string">on</span>
+plot(TEL,MEL(g,:),<span class="string">'b'</span>,<span class="string">'linewidth'</span>,3);
+plot(TCDC,MCDC(g,:),<span class="string">'r'</span>,<span class="string">'linewidth'</span>,3);
+title([<span class="string">'gene'</span> num2str(g)]);legend(<span class="string">'EL'</span>,<span class="string">'CDC'</span>);
+hold <span class="string">on</span>
+<span class="keyword">for</span> i = 1:3
+    plot(TEL,EL(g,:,i),<span class="string">'bo--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:2
+    plot(TCDC,CDC(g,:,i),<span class="string">'ro--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="compare_01.png"> <h2>Gene 2<a name="8"></a></h2><pre class="codeinput">g = 2;
+plot(TEL,MEL(g,:),<span class="string">'b'</span>,<span class="string">'linewidth'</span>,3);
+hold <span class="string">on</span>
+plot(TCDC,MCDC(g,:),<span class="string">'r'</span>,<span class="string">'linewidth'</span>,3);
+title([<span class="string">'gene'</span> num2str(g)]);legend(<span class="string">'EL'</span>,<span class="string">'CDC'</span>);
+<span class="keyword">for</span> i = 1:3
+    plot(TEL,EL(g,:,i),<span class="string">'bo--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:2
+    plot(TCDC,CDC(g,:,i),<span class="string">'ro--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="compare_02.png"> <h2>Gene 3<a name="9"></a></h2><pre class="codeinput">g = 3;
+plot(TEL,MEL(g,:),<span class="string">'b'</span>,<span class="string">'linewidth'</span>,3);
+hold <span class="string">on</span>
+plot(TCDC,MCDC(g,:),<span class="string">'r'</span>,<span class="string">'linewidth'</span>,3);
+title([<span class="string">'gene'</span> num2str(g)]);legend(<span class="string">'EL'</span>,<span class="string">'CDC'</span>);
+<span class="keyword">for</span> i = 1:3
+    plot(TEL,EL(g,:,i),<span class="string">'bo--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:2
+    plot(TCDC,CDC(g,:,i),<span class="string">'ro--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="compare_03.png"> <h2>Gene 4<a name="10"></a></h2><pre class="codeinput">g = 4;
+plot(TEL,MEL(g,:),<span class="string">'b'</span>,<span class="string">'linewidth'</span>,3);
+hold <span class="string">on</span>
+plot(TCDC,MCDC(g,:),<span class="string">'r'</span>,<span class="string">'linewidth'</span>,3);
+title([<span class="string">'gene'</span> num2str(g)]);legend(<span class="string">'EL'</span>,<span class="string">'CDC'</span>);
+<span class="keyword">for</span> i = 1:3
+    plot(TEL,EL(g,:,i),<span class="string">'bo--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:2
+    plot(TCDC,CDC(g,:,i),<span class="string">'ro--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="compare_04.png"> <h2>Gene 5<a name="11"></a></h2><pre class="codeinput">g = 5;
+plot(TEL,MEL(g,:),<span class="string">'b'</span>,<span class="string">'linewidth'</span>,3);
+hold <span class="string">on</span>
+plot(TCDC,MCDC(g,:),<span class="string">'r'</span>,<span class="string">'linewidth'</span>,3);
+title([<span class="string">'gene'</span> num2str(g)]);legend(<span class="string">'EL'</span>,<span class="string">'CDC'</span>);
+<span class="keyword">for</span> i = 1:3
+    plot(TEL,EL(g,:,i),<span class="string">'bo--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:2
+    plot(TCDC,CDC(g,:,i),<span class="string">'ro--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="compare_05.png"> <h2>Gene 6<a name="12"></a></h2><pre class="codeinput">g = 6;
+plot(TEL,MEL(g,:),<span class="string">'b'</span>,<span class="string">'linewidth'</span>,3);
+hold <span class="string">on</span>
+plot(TCDC,MCDC(g,:),<span class="string">'r'</span>,<span class="string">'linewidth'</span>,3);
+title([<span class="string">'gene'</span> num2str(g)]);legend(<span class="string">'EL'</span>,<span class="string">'CDC'</span>);
+<span class="keyword">for</span> i = 1:3
+    plot(TEL,EL(g,:,i),<span class="string">'bo--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:2
+    plot(TCDC,CDC(g,:,i),<span class="string">'ro--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="compare_06.png"> <h2>Gene 7<a name="13"></a></h2><pre class="codeinput">g = 7;
+plot(TEL,MEL(g,:),<span class="string">'b'</span>,<span class="string">'linewidth'</span>,3);
+hold <span class="string">on</span>
+plot(TCDC,MCDC(g,:),<span class="string">'r'</span>,<span class="string">'linewidth'</span>,3);
+title([<span class="string">'gene'</span> num2str(g)]);legend(<span class="string">'EL'</span>,<span class="string">'CDC'</span>);
+<span class="keyword">for</span> i = 1:3
+    plot(TEL,EL(g,:,i),<span class="string">'bo--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:2
+    plot(TCDC,CDC(g,:,i),<span class="string">'ro--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="compare_07.png"> <h2>Gene 8<a name="14"></a></h2><pre class="codeinput">g = 8;
+plot(TEL,MEL(g,:),<span class="string">'b'</span>,<span class="string">'linewidth'</span>,3);
+hold <span class="string">on</span>
+plot(TCDC,MCDC(g,:),<span class="string">'r'</span>,<span class="string">'linewidth'</span>,3);
+title([<span class="string">'gene'</span> num2str(g)]);legend(<span class="string">'EL'</span>,<span class="string">'CDC'</span>);
+<span class="keyword">for</span> i = 1:3
+    plot(TEL,EL(g,:,i),<span class="string">'bo--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:2
+    plot(TCDC,CDC(g,:,i),<span class="string">'ro--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="compare_08.png"> <h2>gene 9<a name="15"></a></h2><pre class="codeinput">g = 9;
+plot(TEL,MEL(g,:),<span class="string">'b'</span>,<span class="string">'linewidth'</span>,3);
+hold <span class="string">on</span>
+plot(TCDC,MCDC(g,:),<span class="string">'r'</span>,<span class="string">'linewidth'</span>,3);
+title([<span class="string">'gene'</span> num2str(g)]);legend(<span class="string">'EL'</span>,<span class="string">'CDC'</span>);
+<span class="keyword">for</span> i = 1:3
+    plot(TEL,EL(g,:,i),<span class="string">'bo--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:2
+    plot(TCDC,CDC(g,:,i),<span class="string">'ro--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="compare_09.png"> <h2>Gene 10<a name="16"></a></h2><pre class="codeinput">g = 10;
+plot(TEL,MEL(g,:),<span class="string">'b'</span>,<span class="string">'linewidth'</span>,3);
+hold <span class="string">on</span>
+plot(TCDC,MCDC(g,:),<span class="string">'r'</span>,<span class="string">'linewidth'</span>,3);
+title([<span class="string">'gene'</span> num2str(g)]);legend(<span class="string">'EL'</span>,<span class="string">'CDC'</span>);
+<span class="keyword">for</span> i = 1:3
+    plot(TEL,EL(g,:,i),<span class="string">'bo--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:2
+    plot(TCDC,CDC(g,:,i),<span class="string">'ro--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="compare_10.png"> <h2>Gene 11<a name="17"></a></h2><pre class="codeinput">g = 11;
+plot(TEL,MEL(g,:),<span class="string">'b'</span>,<span class="string">'linewidth'</span>,3);
+hold <span class="string">on</span>
+plot(TCDC,MCDC(g,:),<span class="string">'r'</span>,<span class="string">'linewidth'</span>,3);
+title([<span class="string">'gene'</span> num2str(g)]);legend(<span class="string">'EL'</span>,<span class="string">'CDC'</span>);
+<span class="keyword">for</span> i = 1:3
+    plot(TEL,EL(g,:,i),<span class="string">'bo--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:2
+    plot(TCDC,CDC(g,:,i),<span class="string">'ro--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="compare_11.png"> <h2>Gene 12<a name="18"></a></h2><pre class="codeinput">g = 12;
+plot(TEL,MEL(g,:),<span class="string">'b'</span>,<span class="string">'linewidth'</span>,3);
+hold <span class="string">on</span>
+plot(TCDC,MCDC(g,:),<span class="string">'r'</span>,<span class="string">'linewidth'</span>,3);
+title([<span class="string">'gene'</span> num2str(g)]);legend(<span class="string">'EL'</span>,<span class="string">'CDC'</span>);
+<span class="keyword">for</span> i = 1:3
+    plot(TEL,EL(g,:,i),<span class="string">'bo--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:2
+    plot(TCDC,CDC(g,:,i),<span class="string">'ro--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="compare_12.png"> <h2>Gene 13<a name="19"></a></h2><pre class="codeinput">g = 13;
+plot(TEL,MEL(g,:),<span class="string">'b'</span>,<span class="string">'linewidth'</span>,3);
+hold <span class="string">on</span>
+plot(TCDC,MCDC(g,:),<span class="string">'r'</span>,<span class="string">'linewidth'</span>,3);
+title([<span class="string">'gene'</span> num2str(g)]);legend(<span class="string">'EL'</span>,<span class="string">'CDC'</span>);
+<span class="keyword">for</span> i = 1:3
+    plot(TEL,EL(g,:,i),<span class="string">'bo--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:2
+    plot(TCDC,CDC(g,:,i),<span class="string">'ro--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="compare_13.png"> <h2>Gene 14<a name="20"></a></h2><pre class="codeinput">g = 14;
+plot(TEL,MEL(g,:),<span class="string">'b'</span>,<span class="string">'linewidth'</span>,3);
+hold <span class="string">on</span>
+plot(TCDC,MCDC(g,:),<span class="string">'r'</span>,<span class="string">'linewidth'</span>,3);
+title([<span class="string">'gene'</span> num2str(g)]);legend(<span class="string">'EL'</span>,<span class="string">'CDC'</span>);
+<span class="keyword">for</span> i = 1:3
+    plot(TEL,EL(g,:,i),<span class="string">'bo--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:2
+    plot(TCDC,CDC(g,:,i),<span class="string">'ro--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="compare_14.png"> <h2>Gene 15<a name="21"></a></h2><pre class="codeinput">g = 15;
+plot(TEL,MEL(g,:),<span class="string">'b'</span>,<span class="string">'linewidth'</span>,3);
+hold <span class="string">on</span>
+plot(TCDC,MCDC(g,:),<span class="string">'r'</span>,<span class="string">'linewidth'</span>,3);
+title([<span class="string">'gene'</span> num2str(g)]);legend(<span class="string">'EL'</span>,<span class="string">'CDC'</span>);
+<span class="keyword">for</span> i = 1:3
+    plot(TEL,EL(g,:,i),<span class="string">'bo--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:2
+    plot(TCDC,CDC(g,:,i),<span class="string">'ro--'</span>,<span class="string">'linewidth'</span>,0.5);
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="compare_15.png"> <p class="footer"><br>
+         Published with MATLAB&reg; 7.0.4<br></p>
+      <!--
+##### SOURCE BEGIN #####
+%% Compare genex data for EL and CDC for the SEP SIM
+%% Clear everything
+clear all
+%% Load data
+EL(:,:,1) = dlmread('../../el/sep/data1_el_sep.dat');
+EL(:,:,2) = dlmread('../../el/sep/data1_el_sep.dat');
+EL(:,:,2) = dlmread('../../el/sep/data2_el_sep.dat');
+EL(:,:,3) = dlmread('../../el/sep/data3_el_sep.dat');
+CDC(:,:,1) = dlmread('../../cdc/sep/data1_cdc_sep.dat');
+CDC(:,:,2) = dlmread('../../cdc/sep/data2_cdc_sep.dat');
+
+%% Check the size
+size(EL)
+size(CDC)
+
+%% Remove extra CDC rows
+CDC(16,:,:) = [];
+
+%% Calc means
+nG = 15;
+for g = 1:nG
+    MEL(g,:) = mean([EL(g,:,1);EL(g,:,2);EL(g,:,3)]);
+    MCDC(g,:) = mean([CDC(g,:,1);CDC(g,:,2)]);
+end
+%% Loop through genes and plot
+TEL = [0:15:295];
+TCDC = [0:15:265];
+nG = 15;
+%% Gene 1
+g = 1;
+figure(1);hold on
+plot(TEL,MEL(g,:),'b','linewidth',3);
+plot(TCDC,MCDC(g,:),'r','linewidth',3);
+title(['gene' num2str(g)]);legend('EL','CDC');
+hold on
+for i = 1:3
+    plot(TEL,EL(g,:,i),'boREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+for i = 1:2
+    plot(TCDC,CDC(g,:,i),'roREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+hold off
+%% Gene 2
+g = 2;
+plot(TEL,MEL(g,:),'b','linewidth',3);
+hold on
+plot(TCDC,MCDC(g,:),'r','linewidth',3);
+title(['gene' num2str(g)]);legend('EL','CDC');
+for i = 1:3
+    plot(TEL,EL(g,:,i),'boREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+for i = 1:2
+    plot(TCDC,CDC(g,:,i),'roREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+hold off
+%% Gene 3
+g = 3;
+plot(TEL,MEL(g,:),'b','linewidth',3);
+hold on
+plot(TCDC,MCDC(g,:),'r','linewidth',3);
+title(['gene' num2str(g)]);legend('EL','CDC');
+for i = 1:3
+    plot(TEL,EL(g,:,i),'boREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+for i = 1:2
+    plot(TCDC,CDC(g,:,i),'roREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+hold off
+%% Gene 4
+g = 4;
+plot(TEL,MEL(g,:),'b','linewidth',3);
+hold on
+plot(TCDC,MCDC(g,:),'r','linewidth',3);
+title(['gene' num2str(g)]);legend('EL','CDC');
+for i = 1:3
+    plot(TEL,EL(g,:,i),'boREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+for i = 1:2
+    plot(TCDC,CDC(g,:,i),'roREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+hold off
+%% Gene 5
+g = 5;
+plot(TEL,MEL(g,:),'b','linewidth',3);
+hold on
+plot(TCDC,MCDC(g,:),'r','linewidth',3);
+title(['gene' num2str(g)]);legend('EL','CDC');
+for i = 1:3
+    plot(TEL,EL(g,:,i),'boREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+for i = 1:2
+    plot(TCDC,CDC(g,:,i),'roREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+hold off
+%% Gene 6
+g = 6;
+plot(TEL,MEL(g,:),'b','linewidth',3);
+hold on
+plot(TCDC,MCDC(g,:),'r','linewidth',3);
+title(['gene' num2str(g)]);legend('EL','CDC');
+for i = 1:3
+    plot(TEL,EL(g,:,i),'boREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+for i = 1:2
+    plot(TCDC,CDC(g,:,i),'roREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+hold off
+%% Gene 7
+g = 7;
+plot(TEL,MEL(g,:),'b','linewidth',3);
+hold on
+plot(TCDC,MCDC(g,:),'r','linewidth',3);
+title(['gene' num2str(g)]);legend('EL','CDC');
+for i = 1:3
+    plot(TEL,EL(g,:,i),'boREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+for i = 1:2
+    plot(TCDC,CDC(g,:,i),'roREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+hold off
+%% Gene 8
+g = 8;
+plot(TEL,MEL(g,:),'b','linewidth',3);
+hold on
+plot(TCDC,MCDC(g,:),'r','linewidth',3);
+title(['gene' num2str(g)]);legend('EL','CDC');
+for i = 1:3
+    plot(TEL,EL(g,:,i),'boREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+for i = 1:2
+    plot(TCDC,CDC(g,:,i),'roREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+hold off
+%% gene 9
+g = 9;
+plot(TEL,MEL(g,:),'b','linewidth',3);
+hold on
+plot(TCDC,MCDC(g,:),'r','linewidth',3);
+title(['gene' num2str(g)]);legend('EL','CDC');
+for i = 1:3
+    plot(TEL,EL(g,:,i),'boREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+for i = 1:2
+    plot(TCDC,CDC(g,:,i),'roREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+hold off
+%% Gene 10
+g = 10;
+plot(TEL,MEL(g,:),'b','linewidth',3);
+hold on
+plot(TCDC,MCDC(g,:),'r','linewidth',3);
+title(['gene' num2str(g)]);legend('EL','CDC');
+for i = 1:3
+    plot(TEL,EL(g,:,i),'boREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+for i = 1:2
+    plot(TCDC,CDC(g,:,i),'roREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+hold off
+%% Gene 11
+g = 11;
+plot(TEL,MEL(g,:),'b','linewidth',3);
+hold on
+plot(TCDC,MCDC(g,:),'r','linewidth',3);
+title(['gene' num2str(g)]);legend('EL','CDC');
+for i = 1:3
+    plot(TEL,EL(g,:,i),'boREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+for i = 1:2
+    plot(TCDC,CDC(g,:,i),'roREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+hold off
+%% Gene 12
+g = 12;
+plot(TEL,MEL(g,:),'b','linewidth',3);
+hold on
+plot(TCDC,MCDC(g,:),'r','linewidth',3);
+title(['gene' num2str(g)]);legend('EL','CDC');
+for i = 1:3
+    plot(TEL,EL(g,:,i),'boREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+for i = 1:2
+    plot(TCDC,CDC(g,:,i),'roREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+hold off
+%% Gene 13
+g = 13;
+plot(TEL,MEL(g,:),'b','linewidth',3);
+hold on
+plot(TCDC,MCDC(g,:),'r','linewidth',3);
+title(['gene' num2str(g)]);legend('EL','CDC');
+for i = 1:3
+    plot(TEL,EL(g,:,i),'boREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+for i = 1:2
+    plot(TCDC,CDC(g,:,i),'roREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+hold off
+%% Gene 14
+g = 14;
+plot(TEL,MEL(g,:),'b','linewidth',3);
+hold on
+plot(TCDC,MCDC(g,:),'r','linewidth',3);
+title(['gene' num2str(g)]);legend('EL','CDC');
+for i = 1:3
+    plot(TEL,EL(g,:,i),'boREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+for i = 1:2
+    plot(TCDC,CDC(g,:,i),'roREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+hold off
+%% Gene 15
+g = 15;
+plot(TEL,MEL(g,:),'b','linewidth',3);
+hold on
+plot(TCDC,MCDC(g,:),'r','linewidth',3);
+title(['gene' num2str(g)]);legend('EL','CDC');
+for i = 1:3
+    plot(TEL,EL(g,:,i),'boREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+for i = 1:2
+    plot(TCDC,CDC(g,:,i),'roREPLACE_WITH_DASH_DASH','linewidth',0.5);
+end
+hold off
+
+##### SOURCE END #####
+-->
+   </body>
+</html>

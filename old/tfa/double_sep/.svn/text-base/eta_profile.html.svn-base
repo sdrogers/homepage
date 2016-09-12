@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<TITLE>Inference of Transcription Factor Activity</TITLE>
+<LINK REL=stylesheet HREF="../tfa.css" TYPE="text/css">
+</HEAD>
+
+<BODY bgcolor="#CCCCCC">
+<div class="TITLE">
+Inference of Transcription Factor Activity (TFA) levels from Microarray Data
+</div>
+<div class="OVERALL">
+  <div class="MAIN">
+    <div id="head2">TFA Profiles</div>
+    <img src="plotetas_01.png" width=600px>
+  </div>
+
+</div>
+</BODY>
+
+
+
+</HTML>

@@ -1,0 +1,72 @@
+.DCSLOGO { 
+	position: absolute;
+	left: 120px; 
+	top: 50px ; 
+	width: 160px ; 
+	height:100px ; 
+	overflow: auto;
+	background: url(figures/dcsbluetower150.gif) no-repeat;
+}
+.UNILOGO { 
+	position: absolute; 
+	left: 800px; 
+	top: 20px ; 
+	width: 170px ; 
+	height:200px ; 
+	overflow: auto;
+	background: transparent url(figures/shieldcentre.gif) no-repeat;
+}
+.BRISLOGO { 
+	position: absolute; 
+	left: 520px; 
+	top: 60px ; 
+	width: 250px ; 
+	height:200px ; 
+	overflow: auto;
+	background: transparent url(figures/logo-screen.gif) no-repeat;
+}
+.ENMLOGO { 
+	position: absolute; 
+	left: 400px; 
+	top: 70px ; 
+	width: 250px ; 
+	height:200px ; 
+	overflow: auto;
+	background: transparent url(figures/enm_logo.gif) no-repeat;
+}
+.TITLE {
+	position: absolute;
+	left:200px;
+	top:200px;
+	width:700px;
+	font-size: 32pt;
+	font-family: sans-serif;
+	font-variant: small-caps;
+	color: #666;
+	text-align: center;
+}
+.MAIN {
+	position: absolute;
+	left: 150px;
+	top:275px;
+	width: 750px;
+	height: 500px;
+	font-size:10pt;
+	font-family: sans-serif;
+	color: #333;
+	text-align: justify;
+}
+
+.SH {
+	font-family: sans-serif;
+	font-size: 14pt;
+	color: #933;
+	font-variant: small-caps;
+	font-weight: bold;
+	text-align: center;
+}
+
+A:link {text-decoration: none}
+A:active { text-decoration: none }
+A:visited { text-decoration: none } 
+A {color: #990066}

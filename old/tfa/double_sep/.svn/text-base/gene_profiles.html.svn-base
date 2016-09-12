@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<TITLE>Inference of Transcription Factor Activity</TITLE>
+<LINK REL=stylesheet HREF="../tfa.css" TYPE="text/css">
+</HEAD>
+
+<BODY bgcolor="#CCCCCC">
+<div class="TITLE">
+Inference of Transcription Factor Activity (TFA) levels from Microarray Data
+</div>
+<div class="OVERALL">
+  <div class="MAIN">
+    <div id="head2">Gene Expression Profiles</div>
+    <div id="head3">Gene 1</div>
+    <img src="ge1.png" width=600px>
+    <div id="head3">Gene 2</div>
+    <img src="ge2.png" width=600px>
+    <div id="head3">Gene 3</div>
+    <img src="ge3.png" width=600px>
+    <div id="head3">Gene 4</div>
+    <img src="ge4.png" width=600px>
+    <div id="head3">Gene 5</div>
+    <img src="ge5.png" width=600px>
+    <div id="head3">Gene 6</div>
+    <img src="ge6.png" width=600px>
+    <div id="head3">Gene 7</div>
+    <img src="ge7.png" width=600px>
+    <div id="head3">Gene 8</div>
+    <img src="ge8.png" width=600px>
+    <div id="head3">Gene 9</div>
+    <img src="ge9.png" width=600px>
+    <div id="head3">Gene 10</div>
+    <img src="ge10.png" width=600px>
+    <div id="head3">Gene 11</div>
+    <img src="ge11.png" width=600px>
+    <div id="head3">Gene 12</div>
+    <img src="ge12.png" width=600px>
+    <div id="head3">Gene 13</div>
+    <img src="ge13.png" width=600px>
+    <div id="head3">Gene 14</div>
+    <img src="ge14.png" width=600px>
+    <div id="head3">Gene 15</div>
+    <img src="ge15.png" width=600px>
+  </div>
+
+</div>
+</BODY>
+
+
+
+</HTML>

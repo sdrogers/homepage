@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<link rel="stylesheet" type="text/css" href="css/basic.css"/>
+<meta name="keywords" content="Simon Rogers"/>
+</head>
+
+
+
+<body>
+
+<div id="wrap">
+
+
+
+<div id="title">Simon Rogers</div>
+<div id="title_lower"><b>Lecturer</b>: Department of Computing Science, University of Glasgow</div>
+
+
+<div id="main">
+				<h2>A Bayesian Regression Approach to the Inference of Regulatory Networks from Gene Expression Data - Supplementary Information</h2>
+      			<h3>Abstract</h3>
+      			<div>
+      				<b>Motivation:</b>There is currently much interest in reverse-engineering regulatory relationships between genes from microarray expression data.  We propose a new algorithmic method for inferring such interactions between genes using data from gene knockout experiments.  The algorithm we use is the Sparse Bayesian regression algorithm of Tipping and Faul.</p>
+     				<p><b>Results:</b>Using simulated microarray expression data, we are able to show that this algorithm outperforms a recently published correlation based approach.  Crucially, it does this without the need to set any threshold on possible connections.</p>
+      				<p><b>Availability:</b>Matlab code is available from <a href=http://www.dcs.gla.ac.uk/~srogers/old/nets/reg_nets.html>http://www.dcs.gla.ac.uk/~srogers/old/nets/reg_nets.html</a></p>
+      				<p><b>Contact:</b>{srogers,girolami}@dcs.gla.ac.uk</p>
+     			</div>
+
+      		<h3>Download</h3>
+      		<div><a href="http://bioinformatics.oupjournals.org/cgi/reprint/bti487v2">[Paper]</a>  <a href="nets/supplementary_material.pdf">[Supplementary Document]</a></div>
+      		<h3>Matlab Code</h3>
+      		<p><b>Disclaimer:</b>  The code given below has been created and used on Matlab R13.  It should work fine on other releases but no testing has been performed.  Obviously, the code is distributed without any warranty and should the authors should be referenced in any publications quoting results from this code.  No additional libraries are required to run this code.  The main functions have been commented but some smaller functions have not.  For more information e-mail srogers@dcs.gla.ac.uk.</p>
+
+      		<div>The following archive holds all the necessary .m files.  <a href="./sb_code.tar.gz">sb_code.tar.gz</a>.
+      		<ul>
+        		<li>simple_script.m - runs a simple experiment</li>
+				<li>create_data.m - creates a dataset</li>
+				<li>make_network.m - creates a connectivity matrix</li>
+				<li>euler_forward.m - integrates the set of SDE's</li>
+				<li>ode_function.m - required by euler_forward.m</li>
+				<li>cause_rvm_approach.m - organises the data and initialises the Sparse Bayesian algorithm</li>
+				<li>rvm_regression.m - Sparse Bayesian regression</li>
+				<li>calc_roc.m - calculates ROC statistics for plotting</li>
+				<li>comp_roc_plot.m - plots ROC curves</li>
+     		 </ul></div>
+      		<p><b>Instructions:</b> Download the archive above and extract it into a new directory.  Load matlab, navigate to this new directory and type:</p>
+     		<p>> simple_script</p>
+     		<p>The script should then begin.  The following output should be produced (see links for examples)</p>
+     		<div>
+      		<ul>
+        		<li>An image of the complete data - <a href="./data.jpg" target=new>data.jpg</a>
+				<li>The true connectivity matrix - <a href="./conn.jpg" target=new>conn.jpg</a>.  Each column corresponds to the connections out of a gene.  Maroon squares show excitatory connections, blue inhibitory.
+				<li>The Correlation connectivity matrix - <a href="./corr.jpg" target=new>corr.jpg</a>.
+				<li>The Sparse Bayes connectivity matrix - <a href="./sb.jpg" target=new>sb.jpg</a>.
+				<li>ROC plot for the two methods - <a href="./roc.jpg" target=new>roc.jpg</a>.
+      		</ul>
+      		</div>
+            <div>
+				<table width=100%>
+        			<tr>
+						<td width=15%></td><td width=15%></td><td width=15%></td><td width=15%></td><td width=15%></td><td width=15%></td>
+					</tr>
+        			<tr>
+	  					<td></td>
+	  					<td colspan=2 align=center><a href="./data.jpg" target=new><img src="./data.jpg" width=120></a></td>
+	  					<td colspan=2 align=center><a href="./conn.jpg" target=new><img src="./conn.jpg" width=120></a></td>
+	 					<td></td>
+					</tr>
+					<tr>
+	  					<td></td>
+	  					<td colspan=2 align = center><a href="./data.jpg" target=new>data.jpg</a></td>
+	  					<td colspan=2 align = center><a href="./conn.jpg" target=new>conn.jpg</a></td>
+	 					<td></td>
+					</tr>
+					<tr>
+	 					<td colspan=2 align=center><a href="./corr.jpg" target=new><img src="./corr.jpg" width=120></a></td>
+	  					<td colspan=2 align=center><a href="./sb.jpg" target=new><img src="./sb.jpg" width=120></a></td>
+	  					<td colspan=2 align=center><a href="./roc.jpg" target=new><img src="./roc.jpg" width=120></a></td>
+					</tr>
+					<tr>
+	  					<td colspan=2 align=center><a href="./corr.jpg" target=new>corr.jpg</a></td>
+	  					<td colspan=2 align=center><a href="./sb.jpg" target=new>sb.jpg</a></td>
+	  					<td colspan=2 align=center><a href="./roc.jpg" target=new>roc.jpg</a></td>
+					</tr>
+      			</table>
+			</div>
+
+      		<p>It should be fairly easy to modify any of the parameters set in the script.  Any problems or comments, e-mail srogers@dcs.gla.ac.uk.</p>      
+
+		</div>
+			<!-- InstanceEndEditable -->
+		</td>
+	</tr>
+</table>
+</div>
+</div>
+
+</body>
+</html>
